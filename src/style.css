@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@media (max-width: 600px) {
+  .Vue-Toastification__toast--error.mobile-view {
+    width: 91%;
+    margin-top: 1rem;
+    margin-inline: auto;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+}

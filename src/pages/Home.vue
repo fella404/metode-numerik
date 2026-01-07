@@ -30,12 +30,12 @@ const methods = reactive([
 
 <template>
   <div
-    class="min-h-screen bg-[#f8fafc] text-[#1e293b] flex flex-col justify-center items-center p-8 overflow-x-hidden"
+    class="min-h-screen text-[#1e293b] flex flex-col justify-center items-center p-8 overflow-x-hidden"
   >
     <Header />
 
     <main
-      class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-8 w-full max-w-[1000px]"
+      class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-8 w-full max-w-250"
     >
       <Card
         v-for="(method, index) in methods"
