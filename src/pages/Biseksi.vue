@@ -3,6 +3,10 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useMethodStore } from "../stores/methodStore.js";
 import { useToast } from "vue-toastification";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+console.log(route.path);
 
 const method = useMethodStore();
 const toast = useToast();

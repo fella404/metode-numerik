@@ -5,14 +5,14 @@ import Biseksi from "../pages/Biseksi.vue";
 const routes = [
   {
     path: "/",
+    name: "Home",
     component: Home,
   },
   {
     path: "/biseksi",
+    name: "Biseksi",
     component: Biseksi,
   },
-  {},
-  {},
 ];
 
 const router = createRouter({
