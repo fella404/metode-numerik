@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue";
 import Biseksi from "../pages/Biseksi.vue";
+import NewtonRhapson from "../pages/NewtonRhapson.vue";
+import Secant from "../pages/Secant.vue";
 
 const routes = [
   {
@@ -12,6 +14,16 @@ const routes = [
     path: "/biseksi",
     name: "Biseksi",
     component: Biseksi,
+  },
+  {
+    path: "/newton",
+    name: "Newton",
+    component: NewtonRhapson,
+  },
+  {
+    path: "/secant",
+    name: "Secant",
+    component: Secant,
   },
 ];
 

@@ -1,29 +1,26 @@
 <script setup>
-import { onUnmounted, ref } from "vue";
+import { ref, onUnmounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useMethodStore } from "../stores/methodStore.js";
 import { useToast } from "vue-toastification";
-import { useRoute } from "vue-router";
-
-const route = useRoute();
-console.log(route.path);
 
 const method = useMethodStore();
 const toast = useToast();
 
-const batasBawah = ref(0);
-const batasAtas = ref(0);
-const { hasilBiseksi } = storeToRefs(method);
+const x0 = ref("");
+const x1 = ref("");
+const { hasilSecant } = storeToRefs(method);
 
 const handleSubmit = () => {
-  if (batasBawah.value === "" || batasAtas.value === "") {
+  if (x0.value === "" || x1.value === "") {
     return toast.error("All fields are required!", {
       position: "top-center",
       toastClassName: "mobile-view",
     });
   }
 
-  method.biseksi(batasBawah.value, batasAtas.value);
+  method.secant(x0.value, x1.value);
+  console.log(method.hasilSecant);
 };
 
 const cekWarna = (nilai) => {
@@ -35,7 +32,7 @@ const cekWarna = (nilai) => {
 };
 
 onUnmounted(() => {
-  method.hasilBiseksi = [];
+  method.hasilSecant = [];
 });
 </script>
 
@@ -49,43 +46,41 @@ onUnmounted(() => {
     >
       <div class="flex flex-col gap-2 flex-1 relative">
         <label
-          for="batas-bawah"
+          for="x0-input"
           class="text-sm font-semibold text-[#4b5563] uppercase tracking-[0.5px]"
-          >BATAS BAWAH
+          >X0
           <span
             class="italic text-[#6b7280] ml-1"
             style="font-family: 'Times New Roman', Times, serif"
-            >(a)</span
-          ></label
-        >
+          ></span
+        ></label>
         <input
           type="number"
-          v-model="batasBawah"
-          id="batas-bawah"
+          v-model="x0"
+          id="x0-input"
           class="py-3 px-4 border border-[#d1d5db] rounded-lg text-base text-[#111827] bg-[#f9fafb] transition-all duration-200 ease-out outline-none focus:bg-white focus:border-blue-500 focus:ring focus:ring-blue-500/15 focus:outline-none"
           style="font-family: 'Consolas', monospace"
-          placeholder="Contoh: 1.0"
+          placeholder="Contoh: 0.8"
           step="any"
         />
       </div>
       <div class="flex flex-col gap-2 flex-1 relative">
         <label
-          for="batas-atas"
+          for="x1-input"
           class="text-sm font-semibold text-[#4b5563] uppercase tracking-[0.5px]"
-          >BATAS ATAS
+          >X1
           <span
             class="italic text-[#6b7280] ml-1"
             style="font-family: 'Times New Roman', Times, serif"
-            >(b)</span
-          ></label
-        >
+          ></span
+        ></label>
         <input
           type="number"
-          v-model="batasAtas"
-          id="batas-atas"
+          v-model="x1"
+          id="x1-input"
           class="py-3 px-4 border border-[#d1d5db] rounded-lg text-base text-[#111827] bg-[#f9fafb] transition-all duration-200 ease-out outline-none focus:bg-white focus:border-blue-500 focus:ring focus:ring-blue-500/15 focus:outline-none"
           style="font-family: 'Consolas', monospace"
-          placeholder="Contoh: 2.0"
+          placeholder="Contoh: 0.9"
           step="any"
         />
       </div>
@@ -98,30 +93,24 @@ onUnmounted(() => {
     </form>
 
     <div
-      class="w-full max-w-250 max-h-[80vh] overflow-auto bg-white border border-gray-300 rounded shadow-md"
+      class="w-full max-w-150 max-h-[80vh] overflow-auto bg-white border border-gray-300 rounded shadow-md"
     >
       <table class="excel-table w-full border-collapse text-sm text-[#333]">
         <thead>
           <tr>
             <th style="width: 50px">Iterasi</th>
-            <th>a (Bawah)</th>
-            <th>b (Atas)</th>
             <th>x</th>
             <th>f(x)</th>
-            <th>f(a)</th>
-            <th>Keterangan</th>
-            <th>B - A</th>
-            <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr
             class="text-center"
-            v-for="(row, index) in hasilBiseksi"
+            v-for="(row, index) in hasilSecant"
             :key="index"
           >
             <td>
-              <p class="text-center">{{ index + 1 }}</p>
+              <p class="text-center">{{ index }}</p>
             </td>
 
             <td :class="cekWarna(Number(row[0]))">
@@ -130,30 +119,6 @@ onUnmounted(() => {
 
             <td :class="cekWarna(Number(row[1]))">
               <p class="text-center">{{ row[1] }}</p>
-            </td>
-
-            <td :class="cekWarna(Number(row[2]))">
-              <p class="text-center">{{ row[2] }}</p>
-            </td>
-
-            <td :class="cekWarna(Number(row[3]))">
-              <p class="text-center">{{ row[3] }}</p>
-            </td>
-
-            <td :class="cekWarna(Number(row[4]))">
-              <p class="text-center">{{ row[4] }}</p>
-            </td>
-
-            <td>
-              <p class="text-center">{{ row[5] }}</p>
-            </td>
-
-            <td :class="cekWarna(Number(row[6]))">
-              <p class="text-center">{{ row[6] }}</p>
-            </td>
-
-            <td>
-              <p class="text-center">{{ row[7] }}</p>
             </td>
           </tr>
         </tbody>

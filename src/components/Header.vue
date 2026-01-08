@@ -24,6 +24,6 @@
 }
 
 .header-animate {
-  animation: fadeInDown 1s ease-out forwards; /* forwards menjaga state akhir */
+  animation: fadeInDown 1s ease-out forwards;
 }
 </style>

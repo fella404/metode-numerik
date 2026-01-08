@@ -6,8 +6,6 @@ const props = defineProps(["methods", "index"]);
 const isVisible = ref(false);
 
 onMounted(() => {
-  // Logika delay bertahap: 200ms * (urutan + 1)
-  // index 0 = 200ms, index 1 = 400ms, dst.
   setTimeout(() => {
     isVisible.value = true;
   }, 200 * (props.index + 1));
